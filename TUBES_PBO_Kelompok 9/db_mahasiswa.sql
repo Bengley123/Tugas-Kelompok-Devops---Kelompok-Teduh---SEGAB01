@@ -1,82 +1,85 @@
--- MySQL dump 10.13  Distrib 8.0.19, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: db_mahasiswa
--- ------------------------------------------------------
--- Server version	5.5.5-10.11.2-MariaDB
+-- Host: 127.0.0.1
+-- Waktu pembuatan: 03 Nov 2024 pada 05.53
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `tb_mahasiswa`
+-- Database: `db_mahasiswa`
 --
 
-DROP TABLE IF EXISTS `tb_mahasiswa`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_mahasiswa`
+--
+
 CREATE TABLE `tb_mahasiswa` (
-  `nim` varchar(20) DEFAULT NULL,
-  `nama` varchar(20) DEFAULT NULL,
-  `jenis_kelamin` varchar(35) DEFAULT NULL,
-  `kelas` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `nim` int(11) NOT NULL,
+  `nama` varchar(100) NOT NULL,
+  `jenis_kelamin` varchar(50) NOT NULL,
+  `kelas` varchar(50) NOT NULL,
+  `prodi` varchar(100) NOT NULL,
+  `fakultas` varchar(100) NOT NULL,
+  `angkatan` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tb_mahasiswa`
+-- Dumping data untuk tabel `tb_mahasiswa`
 --
 
-LOCK TABLES `tb_mahasiswa` WRITE;
-/*!40000 ALTER TABLE `tb_mahasiswa` DISABLE KEYS */;
-INSERT INTO `tb_mahasiswa` VALUES ('1302213108','Yesa Kris Sihombing','Laki-Laki','se4501'),('1302210025','Tangguh Laksana','Laki-Laki','se4501');
-/*!40000 ALTER TABLE `tb_mahasiswa` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `tb_mahasiswa` (`nim`, `nama`, `jenis_kelamin`, `kelas`, `prodi`, `fakultas`, `angkatan`) VALUES
+(1302210025, 'Tangguh Laksana', 'Laki-Laki', 'se4501', ' S1RPL', ' FIF', ' 2021'),
+(1302210063, 'Fathur Rahman', 'Laki-Laki', 'se4501', ' S1 RPL', ' FIF', ' 2021'),
+(1302210093, 'Ghaza Solihin', 'Laki-Laki', 'se4501', ' S1 RPL', ' FIF', ' 2021'),
+(1302210096, 'Arzaq Ajradika', 'Laki-Laki', 'se4501', ' S1RPL', ' FIF', ' 2021'),
+(1302213108, 'Yesa Sihombing', 'Laki-Laki', 'se4501', 'S1 RPL', 'FIF', '2021');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `tb_registrasi`
+-- Struktur dari tabel `tb_registrasi`
 --
 
-DROP TABLE IF EXISTS `tb_registrasi`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_registrasi` (
-  `nama_depan` varchar(20) DEFAULT NULL,
-  `nama_belakang` varchar(20) DEFAULT NULL,
-  `email` varchar(35) DEFAULT NULL,
-  `username` varchar(30) DEFAULT NULL,
-  `password` varchar(30) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `nama_depan` varchar(30) NOT NULL,
+  `nama_belakang` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `password` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tb_registrasi`
+-- Dumping data untuk tabel `tb_registrasi`
 --
 
-LOCK TABLES `tb_registrasi` WRITE;
-/*!40000 ALTER TABLE `tb_registrasi` DISABLE KEYS */;
-INSERT INTO `tb_registrasi` VALUES ('asdpasdas','iajasjfpa','ddajfaji@gmail.com','usep','usep'),('Yesa ','Sihombing','yesa@gmail.com','bengley123','admin'),('arzaq','ajradika','arzaq@gmail.com','arzaq','arzaq'),('Andi','Erlangga','Andi@gmail.com','erlan','erlan');
-/*!40000 ALTER TABLE `tb_registrasi` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `tb_registrasi` (`nama_depan`, `nama_belakang`, `email`, `username`, `password`) VALUES
+('mail', 'ismet', 'mail@gmail.com', 'mails', 'mails');
 
 --
--- Dumping routines for database 'db_mahasiswa'
+-- Indexes for dumped tables
 --
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Indeks untuk tabel `tb_mahasiswa`
+--
+ALTER TABLE `tb_mahasiswa`
+  ADD PRIMARY KEY (`nim`);
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2023-06-14 18:03:40
