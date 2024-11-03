@@ -20,6 +20,14 @@
         </macrodef>
     </target>
 
-    <!-- Optional: Add any additional custom targets or configurations here -->
+    <target name="default" depends="clean, jar"/>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="jar">
+        <jar destfile="${dist.jar}" basedir="${build.dir}"/>
+    </target>
 
 </project>
