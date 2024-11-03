@@ -38,6 +38,9 @@ public class controllerData {
         b.setNama(fc.gettxtNama().getText());
         b.setJenisKelamin(fc.getjenisKelamin().getSelectedItem().toString());
         b.setKelas(fc.gettxtKelas().getText());
+        b.setProdi(fc.gettxtProdi().getText());
+        b.setFakultas(fc.gettxtFakultas().getText());
+        b.setAngkatan(fc.gettxtAngkatan().getText());
         iData.insert(b);
         
     }
@@ -49,6 +52,9 @@ public class controllerData {
         fc.gettxtNama().setText("");
         fc.getjenisKelamin().setSelectedItem("Pilih Jenis Kelamin");
         fc.gettxtKelas().setText("");
+        fc.gettxtProdi().setText(" ");
+        fc.gettxtFakultas().setText(" ");
+        fc.gettxtAngkatan().setText(" ");
     }
     
     public void isiField(int row){
@@ -57,6 +63,9 @@ public class controllerData {
         fc.gettxtNama().setText(lstMhs.get(row).getNama());
         fc.getjenisKelamin().setSelectedItem(lstMhs.get(row).getJenisKelamin());
         fc.gettxtKelas().setText(lstMhs.get(row).getKelas());
+        fc.gettxtProdi().setText(lstMhs.get(row).getProdi());
+        fc.gettxtFakultas().setText(lstMhs.get(row).getFakultas());
+        fc.gettxtAngkatan().setText(lstMhs.get(row).getAngkatan());
     }
     
     public void update(){
@@ -65,6 +74,9 @@ public class controllerData {
         b.setJenisKelamin(fc.getjenisKelamin().getSelectedItem().toString());
         b.setKelas(fc.gettxtKelas().getText());
         b.setNim(fc.gettxtNim().getText());
+        b.setProdi(fc.gettxtProdi().getText());
+        b.setFakultas(fc.gettxtFakultas().getText());
+        b.setAngkatan(fc.gettxtAngkatan().getText());
         iData.update(b);
         JOptionPane.showMessageDialog(null, "Berhasil Melakukan Update!");
     }

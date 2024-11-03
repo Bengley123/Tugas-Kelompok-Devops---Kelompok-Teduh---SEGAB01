@@ -13,6 +13,10 @@ public class TambahData {
     private String nama;
     private String jenisKelamin;
     private String kelas;
+    private String prodi;
+    private String fakultas;
+    private String angkatan;
+    
     
     public String getNim() {
         return nim;
@@ -67,4 +71,27 @@ public class TambahData {
         this.kelas = kelas;
     }
     
+    public String getProdi(){
+        return prodi;
+    }
+    
+    public void setProdi(String prodi) {
+        this.prodi = prodi;
+    }
+    
+    public String getFakultas(){
+        return fakultas;
+    }
+    
+    public void setFakultas(String fakultas) {
+        this.fakultas = fakultas;
+    }
+    
+    public String getAngkatan(){
+        return angkatan;
+    }
+    
+    public void setAngkatan(String angkatan) {
+        this.angkatan = angkatan;
+    }
 }

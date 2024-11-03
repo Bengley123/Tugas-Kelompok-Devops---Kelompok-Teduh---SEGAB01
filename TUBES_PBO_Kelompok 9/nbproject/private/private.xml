@@ -5,10 +5,11 @@
         <group>
             <file>file:/D:/netbeans%20folder/TUBES_PBO_Kelompok%209/src/koneksi/DBConnection.java</file>
             <file>file:/D:/netbeans%20folder/TUBES_PBO_Kelompok%209/src/DAO/DAOData.java</file>
-            <file>file:/D:/netbeans%20folder/TUBES_PBO_Kelompok%209/src/tampilan/fromlogin.java</file>
-            <file>file:/D:/netbeans%20folder/TUBES_PBO_Kelompok%209/src/DAOInterface/IDAOData.java</file>
+            <file>file:/D:/netbeans%20folder/TUBES_PBO_Kelompok%209/src/view/newfiture.java</file>
             <file>file:/D:/netbeans%20folder/TUBES_PBO_Kelompok%209/src/model/TambahData.java</file>
+            <file>file:/D:/netbeans%20folder/TUBES_PBO_Kelompok%209/src/view/formcrud.java</file>
             <file>file:/D:/netbeans%20folder/TUBES_PBO_Kelompok%209/src/controller/controllerData.java</file>
+            <file>file:/D:/netbeans%20folder/TUBES_PBO_Kelompok%209/src/model/TabelModelData.java</file>
         </group>
     </open-files>
 </project-private>

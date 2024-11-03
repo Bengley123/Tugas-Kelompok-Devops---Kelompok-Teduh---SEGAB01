@@ -38,6 +38,9 @@ public class DAOData implements IDAOData {
                  mhs.setNama(res.getString("nama"));
                  mhs.setJenisKelamin(res.getString("jenis_kelamin"));
                  mhs.setKelas(res.getString("kelas"));
+                 mhs.setProdi(res.getString("prodi"));
+                 mhs.setFakultas(res.getString("fakultas"));
+                 mhs.setAngkatan(res.getString("angkatan"));
                  lstMhs.add(mhs);
              }
         }catch(SQLException e){  
@@ -67,6 +70,9 @@ public class DAOData implements IDAOData {
         statement.setString(2, b.getNama());
         statement.setString(3, b.getJenisKelamin());
         statement.setString(4, b.getKelas());
+        statement.setString(5, b.getProdi());
+        statement.setString(6, b.getFakultas());
+        statement.setString(7, b.getAngkatan());
         statement.execute();
         JOptionPane.showMessageDialog(null, "Data berhasil diinput!");
     } catch (SQLException e) {
@@ -94,6 +100,9 @@ public class DAOData implements IDAOData {
             statement.setString(2, b.getJenisKelamin());
             statement.setString(3, b.getKelas());
             statement.setString(4, b.getNim());
+            statement.setString(5, b.getProdi());
+            statement.setString(6, b.getFakultas());
+            statement.setString(7, b.getAngkatan());
             statement.execute();
         }catch(SQLException e){
             System.out.println("Gagal Update Data!");
@@ -131,8 +140,8 @@ public class DAOData implements IDAOData {
     //SQL Query
     String read = "SELECT * FROM tb_mahasiswa";
     String checkQuery = "SELECT COUNT(*) FROM tb_mahasiswa WHERE nim = ?";
-    String insert = "INSERT INTO tb_mahasiswa(nim,nama,jenis_kelamin,kelas) VALUES(?,?,?,?)";
-    String update = "UPDATE tb_mahasiswa set nama=?,jenis_kelamin=?,kelas=? WHERE nim=?";
+    String insert = "INSERT INTO tb_mahasiswa(nim,nama,jenis_kelamin,kelas,prodi,fakultas,angkatan) VALUES(?,?,?,?,?,?,?)";
+    String update = "UPDATE tb_mahasiswa set nama=?,jenis_kelamin=?,kelas=?,prodi=?,fakultas=?,angkatan=? WHERE nim=?";
     String delete = "DELETE FROM tb_mahasiswa WHERE nim=?";
     
 }

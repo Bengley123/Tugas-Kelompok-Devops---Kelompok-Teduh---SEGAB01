@@ -8,6 +8,7 @@ package tampilan;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import view.formcrud;
+import view.newfiture;
 
 /**
  *
@@ -42,6 +43,7 @@ public class DASHBOARD extends javax.swing.JFrame {
         btRegis = new javax.swing.JButton();
         btLogout = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btRegis1 = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         homePanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -92,6 +94,17 @@ public class DASHBOARD extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("UScholar");
 
+        btRegis1.setBackground(new java.awt.Color(255, 153, 0));
+        btRegis1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btRegis1.setForeground(new java.awt.Color(255, 255, 255));
+        btRegis1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icon_register.png"))); // NOI18N
+        btRegis1.setText("STATISTIK");
+        btRegis1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btRegis1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
         sidePanel.setLayout(sidePanelLayout);
         sidePanelLayout.setHorizontalGroup(
@@ -101,7 +114,8 @@ public class DASHBOARD extends javax.swing.JFrame {
                 .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btRegis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btRegis1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addContainerGap()
@@ -118,9 +132,13 @@ public class DASHBOARD extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btRegis)
                 .addGap(18, 18, 18)
+                .addComponent(btRegis1)
+                .addGap(18, 18, 18)
                 .addComponent(btLogout)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        btRegis1.getAccessibleContext().setAccessibleName("statistik");
 
         mainPanel.setBackground(new java.awt.Color(0, 0, 102));
         mainPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
@@ -245,6 +263,17 @@ public class DASHBOARD extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btLogoutActionPerformed
 
+    private void btRegis1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegis1ActionPerformed
+        mainPanel.removeAll();
+        mainPanel.repaint();
+        mainPanel.revalidate();
+        newfiture form = new newfiture();
+        
+        mainPanel.add(form);
+        mainPanel.repaint();
+        mainPanel.revalidate();         // TODO add your handling code here:
+    }//GEN-LAST:event_btRegis1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -285,6 +314,7 @@ public class DASHBOARD extends javax.swing.JFrame {
     private javax.swing.JButton btHome;
     private javax.swing.JButton btLogout;
     private javax.swing.JButton btRegis;
+    private javax.swing.JButton btRegis1;
     private javax.swing.JPanel homePanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

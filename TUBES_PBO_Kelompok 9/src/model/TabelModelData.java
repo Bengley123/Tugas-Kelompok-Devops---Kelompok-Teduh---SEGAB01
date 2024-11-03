@@ -1,14 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
+
+
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-/**
- *
- * @author ASUS
- */
+import model.TambahData;
+
 public class TabelModelData extends AbstractTableModel{
     
     public TabelModelData(List<TambahData> lstMhs){
@@ -16,12 +12,12 @@ public class TabelModelData extends AbstractTableModel{
     }
     @Override
     public int getRowCount() {
-        return this.lstMhs.size();
+        return this.lstMhs.size(); 
     }
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 7;
     }
     
     @Override
@@ -35,6 +31,12 @@ public class TabelModelData extends AbstractTableModel{
                 return "Jenis Kelamin";
             case 3:
                 return "Kelas";
+            case 4:
+                return "Prodi";
+            case 5:
+                return "Fakultas";
+            case 6:
+                return "Angkatan";
             default:
                 return null;
         }
@@ -51,6 +53,12 @@ public class TabelModelData extends AbstractTableModel{
                 return lstMhs.get(rowIndex).getJenisKelamin();
             case 3:
                 return lstMhs.get(rowIndex).getKelas();
+            case 4:
+                return lstMhs.get(rowIndex).getProdi();
+            case 5:
+                return lstMhs.get(rowIndex).getFakultas();
+            case 6:
+                return lstMhs.get(rowIndex).getAngkatan();
             default:
                 return null;
         }
