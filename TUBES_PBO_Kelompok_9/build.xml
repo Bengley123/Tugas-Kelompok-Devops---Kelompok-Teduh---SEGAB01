@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="TUBES_PBO_Kelompok_9" default="default" basedir=".">
+    <description>Builds, tests, and runs the project TUBES_PBO_Kelompok 9.</description>
+
+    <!-- Import the NetBeans build implementation -->
+    <import file="nbproject/build-impl.xml"/>
+
+    <!-- Override the macro for javac compilation to set Java version -->
+    <target name="-init-macrodef-javac">
+        <macrodef name="javac">
+            <attribute name="srcdir" default="${src.dir}"/>
+            <attribute name="destdir" default="${build.classes.dir}"/>
+            <sequential>
+                <javac srcdir="@{srcdir}" destdir="@{destdir}" source="17" target="17">
+                    <classpath>
+                        <path refid="project.class.path"/>
+                    </classpath>
+                </javac>
+            </sequential>
+        </macrodef>
+    </target>
+
+    <!-- Optional: Add any additional custom targets or configurations here -->
+
+</project>
