@@ -74,11 +74,18 @@
         </junit>
     </target>
 
+    <!-- Run a specific Java test class -->
+    <target name="run-java-test" depends="compile-test">
+        <java classname="java.test" fork="true">
+            <classpath refid="project.classpath"/>
+        </java>
+    </target>
+
     <!-- Package compiled classes into a JAR -->
     <target name="jar" depends="compile">
         <jar destfile="${dist.dir}/TUBES_PBO_Kelompok_9.jar" basedir="${build.classes.dir}"/>
     </target>
 
     <!-- Default target -->
-    <target name="default" depends="clean, compile, jar, test"/>
+    <target name="default" depends="clean, compile, jar, test, run-java-test"/>
 </project>
