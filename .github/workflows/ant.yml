@@ -27,21 +27,24 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y ant
 
-    - name: Create lib directory if not exists
-      run: mkdir -p lib
-
-    - name: Download JUnit
+    - name: Verify directory structure
       run: |
-        wget https://repo1.maven.org/maven2/junit/junit/4.13.2/junit-4.13.2.jar -P lib/
-        wget https://repo1.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar -P lib/
+        ls -al
+        cd TUBES_PBO_Kelompok9
+        ls -al
 
     - name: Grant execute permission for build scripts
       run: |
+        cd TUBES_PBO_Kelompok9
         chmod +x build.xml
         find nbproject -name "*.xml" -exec chmod +x {} \;
 
     - name: Build with Ant
-      run: ant -noinput -f build.xml clean jar
+      run: |
+        cd TUBES_PBO_Kelompok9
+        ant -noinput -f build.xml clean jar
 
     - name: Run Tests
-      run: ant test
+      run: |
+        cd TUBES_PBO_Kelompok9
+        ant test
