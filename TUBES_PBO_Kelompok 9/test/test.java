@@ -26,6 +26,7 @@ public class test {
     public void setUp() {
         form = new formcrud();
     }
+
     
     @Test
     public void testGetTextFields() {
@@ -54,6 +55,8 @@ public class test {
         assertNotNull("Angkatan field should not be null", angkatanField);
     }
     
+
+
     
     
     
