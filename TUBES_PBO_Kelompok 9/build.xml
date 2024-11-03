@@ -14,7 +14,7 @@
     <!-- Define classpath for the project -->
     <path id="project.class.path">
         <fileset dir="${lib.dir}">
-            <include name="**/*.jar"/>
+            <include name="/*.jar"/>
         </fileset>
     </path>
 
@@ -23,16 +23,19 @@
         <path refid="project.class.path"/>
         <pathelement location="${build.classes.dir}"/>  <!-- Add main classes to test classpath -->
         <pathelement location="${build.test.dir}"/>     <!-- Add test classes -->
+        <fileset dir="lib">
+            <include name="mockito-core-5.14.2.jar"/> <!-- Add Mockito JAR here -->
+        </fileset>
     </path>
 
     <path id="project.classpath">
         <fileset dir="lib">
             <include name="mysql-connector-j-9.1.0.jar"/>
+            <include name="mockito-core-5.14.2.jar"/>
         </fileset>
         <pathelement location="build/classes"/>
         <pathelement location="build/test"/>
     </path>
-
 
     <!-- Import the NetBeans build implementation -->
     <import file="nbproject/build-impl.xml"/>
@@ -78,8 +81,8 @@
             <formatter type="plain" usefile="false"/> <!-- Print to console -->
             <batchtest>
                 <fileset dir="${test.dir}">
-                    <include name="**/*Test.java"/>
-                    <include name="**/test.java"/>
+                    <include name="/*Test.java"/>
+                    <include name="/test.java"/>
                 </fileset>
             </batchtest>
         </junit>

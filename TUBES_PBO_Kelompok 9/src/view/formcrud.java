@@ -1,5 +1,6 @@
 package view;
 import controller.controllerData;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JComboBox;
@@ -8,25 +9,33 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import koneksi.DBConnection;
 
-
 public class formcrud extends javax.swing.JPanel {
 
     /**
      * Creates new form fromcrud2
      */
-    public formcrud() {
+    private Connection connection;
+
+    // Constructor for dependency injection
+    public formcrud(Connection connection) {
+        this.connection = connection != null ? connection : DBConnection.connectDB();
         initComponents();
         ctMhs = new controllerData(this);
         ctMhs.isiTable();
-        
     }
-    void hapus(){
+
+    // Default constructor for normal use (uses real DB connection)
+    public formcrud() {
+        this(DBConnection.connectDB());
+    }
+
+    void hapus() {
         txnim.setText("");
         txnama.setText("");
         txkelas.setText("");
-        
     }
-    void cari(){
+
+    void cari() {
         DefaultTableModel tb1 = new DefaultTableModel();
         tb1.addColumn("nim");
         tb1.addColumn("nama");
@@ -35,30 +44,28 @@ public class formcrud extends javax.swing.JPanel {
         tb1.addColumn("prodi");
         tb1.addColumn("fakultas");
         tb1.addColumn("angkatan");
-        
-        try{
-           String sql = "SELECT * FROM tb_mahasiswa WHERE nim like'%"+tCari.getText()+"%'";
-           Statement st = (Statement) DBConnection.connectDB().createStatement();
-           ResultSet rs = st.executeQuery(sql);
-           
-           while(rs.next()){
-               tb1.addRow(new Object[] {
-                   rs.getString("nim"),
-                   rs.getString("nama"),
-                   rs.getString("jenis_kelamin"),
-                   rs.getString("kelas"),
-                   rs.getString("prodi"),
-                   rs.getString("fakultas"),
-                   rs.getString("angkatan"),
-               });
-               TableData.setModel(tb1);
-           }   
-        }catch(Exception e){          
+
+        try {
+            String sql = "SELECT * FROM tb_mahasiswa WHERE nim like'%" + tCari.getText() + "%'";
+            Statement st = (Statement) connection.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                tb1.addRow(new Object[] {
+                    rs.getString("nim"),
+                    rs.getString("nama"),
+                    rs.getString("jenis_kelamin"),
+                    rs.getString("kelas"),
+                    rs.getString("prodi"),
+                    rs.getString("fakultas"),
+                    rs.getString("angkatan"),
+                });
+                TableData.setModel(tb1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle exception for debugging
         }
     }
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -513,7 +520,7 @@ public class formcrud extends javax.swing.JPanel {
     }
     
     public JTextField gettxtAngkatan() {
-        return txangkatan;
+        return txangkatan;  
     }
 }
 
