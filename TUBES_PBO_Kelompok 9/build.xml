@@ -2,6 +2,11 @@
 <project name="TUBES_PBO_Kelompok 9" default="default" basedir=".">
     <description>Builds, tests, and runs the project TUBES_PBO_Kelompok 9.</description>
 
+    <!-- Define directories -->
+    <property name="build.dir" value="build"/>
+    <property name="dist.dir" value="dist"/>
+    <property name="src.dir" value="src"/>
+
     <!-- Import the NetBeans build implementation -->
     <import file="nbproject/build-impl.xml"/>
 
@@ -9,7 +14,7 @@
     <target name="-init-macrodef-javac">
         <macrodef name="javac">
             <attribute name="srcdir" default="${src.dir}"/>
-            <attribute name="destdir" default="${build.classes.dir}"/>
+            <attribute name="destdir" default="${build.dir}"/>
             <sequential>
                 <javac srcdir="@{srcdir}" destdir="@{destdir}" source="17" target="17">
                     <classpath>
@@ -20,14 +25,19 @@
         </macrodef>
     </target>
 
-    <target name="default" depends="clean, jar"/>
-
     <target name="clean">
         <delete dir="${build.dir}"/>
     </target>
 
-    <target name="jar">
-        <jar destfile="${dist.jar}" basedir="${build.dir}"/>
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${dist.dir}"/>
     </target>
+
+    <target name="jar" depends="init">
+        <jar destfile="${dist.dir}/TUBES_PBO_Kelompok_9.jar" basedir="${build.dir}"/>
+    </target>
+
+    <target name="default" depends="clean, jar"/>
 
 </project>
