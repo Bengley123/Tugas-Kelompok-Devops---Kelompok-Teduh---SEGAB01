@@ -26,7 +26,7 @@ import javax.swing.JTextField;
 import java.util.List;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(DBConnection.class)
+@PrepareForTest({DBConnection.class})
 public class test {
     private Connection mockConnection;
     private Statement mockStatement;
@@ -38,11 +38,15 @@ public class test {
 
     @Before
     public void setUp() throws Exception {
-        // Create mock objects
+        // Initialize mocks
         mockConnection = mock(Connection.class);
         mockStatement = mock(Statement.class);
         mockPreparedStatement = mock(PreparedStatement.class);
         mockResultSet = mock(ResultSet.class);
+        
+        // Mock static DBConnection
+        PowerMockito.mockStatic(DBConnection.class);
+        when(DBConnection.connectDB()).thenReturn(mockConnection);
         
         // Set up mock behavior
         when(mockConnection.createStatement()).thenReturn(mockStatement);
@@ -50,7 +54,7 @@ public class test {
         when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         
-        // Mock ResultSet data
+        // Mock ResultSet behavior
         when(mockResultSet.next()).thenReturn(true, false);
         when(mockResultSet.getString("nim")).thenReturn("12345");
         when(mockResultSet.getString("nama")).thenReturn("Test Name");
@@ -60,23 +64,22 @@ public class test {
         when(mockResultSet.getString("fakultas")).thenReturn("Test Fakultas");
         when(mockResultSet.getString("angkatan")).thenReturn("2023");
         
-        // Mock the database connection class using PowerMockito
-        PowerMockito.mockStatic(DBConnection.class);
-        PowerMockito.when(DBConnection.connectDB()).thenReturn(mockConnection);
-        
-        // Initialize your components
+        // Initialize components
         form = new formcrud();
-        controller = new controllerData(form);
         daoData = new DAOData();
+        controller = new controllerData(form);
     }
 
     @After
     public void tearDown() {
-        // Clean up static mocks
+        // Clean up resources properly
         try {
-            PowerMockito.doCallRealMethod().when(DBConnection.class);
+            if (mockResultSet != null) mockResultSet.close();
+            if (mockStatement != null) mockStatement.close();
+            if (mockPreparedStatement != null) mockPreparedStatement.close();
+            if (mockConnection != null) mockConnection.close();
         } catch (Exception e) {
-            // Ignore cleanup exceptions
+            // Log exception if needed
         }
     }
 
