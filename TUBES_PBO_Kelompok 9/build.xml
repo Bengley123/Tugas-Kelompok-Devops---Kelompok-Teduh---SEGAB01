@@ -21,6 +21,9 @@
             <include name="byte-buddy-1.14.11.jar"/>
             <include name="byte-buddy-agent-1.14.11.jar"/>
             <include name="objenesis-3.3.jar"/>
+            <include name="powermock-core-2.0.9.jar"/>
+            <include name="powermock-api-mockito2-2.0.9.jar"/>
+            <include name="powermock-module-junit4-2.0.9.jar"/>
         </fileset>
         <pathelement location="${build.classes.dir}"/>
         <pathelement location="${build.test.dir}"/>

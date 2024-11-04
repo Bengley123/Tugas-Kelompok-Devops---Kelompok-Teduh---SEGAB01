@@ -26,8 +26,12 @@ public class DAOData implements IDAOData {
         this.connection = connection;
     }
     
-    public DAOData(){
-        con = DBConnection.connectDB();
+     public DAOData() {
+        this.connection = DBConnection.connectDB();
+    }
+    
+    public DAOData(Connection connection) {
+        this.connection = connection;
     }
 
     @Override

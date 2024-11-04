@@ -6,49 +6,60 @@
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import org.junit.Before;
 import org.junit.Test;
 import koneksi.DBConnection;
 import view.formcrud;
 import controller.controllerData;
 import DAO.DAOData;
+import model.TambahData;
 import javax.swing.JTextField;
+import java.util.List;
 
 public class test {
     private Connection mockConnection;
     private Statement mockStatement;
+    private PreparedStatement mockPreparedStatement;
     private ResultSet mockResultSet;
     private formcrud form;
     private DAOData daoData;
     private controllerData controller;
-
 
     @Before
     public void setUp() throws Exception {
         // Create mock objects
         mockConnection = mock(Connection.class);
         mockStatement = mock(Statement.class);
+        mockPreparedStatement = mock(PreparedStatement.class);
         mockResultSet = mock(ResultSet.class);
         
         // Set up mock behavior
         when(mockConnection.createStatement()).thenReturn(mockStatement);
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
         when(mockStatement.executeQuery(anyString())).thenReturn(mockResultSet);
-        when(mockResultSet.next()).thenReturn(true, false); // Return true once, then false
+        when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         
-        // Mock the database connection
-        DBConnection dbConnection = mock(DBConnection.class);
-        when(dbConnection.connectDB()).thenReturn(mockConnection);
+        // Mock ResultSet data
+        when(mockResultSet.next()).thenReturn(true, false);
+        when(mockResultSet.getString("nim")).thenReturn("12345");
+        when(mockResultSet.getString("nama")).thenReturn("Test Name");
+        when(mockResultSet.getString("jenis_kelamin")).thenReturn("Laki-laki");
+        when(mockResultSet.getString("kelas")).thenReturn("A");
+        when(mockResultSet.getString("prodi")).thenReturn("Test Prodi");
+        when(mockResultSet.getString("fakultas")).thenReturn("Test Fakultas");
+        when(mockResultSet.getString("angkatan")).thenReturn("2023");
         
+        // Mock the database connection class
+        mockStatic(DBConnection.class);
+        when(DBConnection.connectDB()).thenReturn(mockConnection);
+        
+        // Initialize your components
         form = new formcrud();
-        
-        // Initialize controller with form
         controller = new controllerData(form);
-        
-        // Initialize your DAO with mock connection
         daoData = new DAOData();
     }
 
@@ -81,22 +92,43 @@ public class test {
 
     @Test
     public void testDatabaseInteraction() throws Exception {
-        // Test DAOData methods instead of FormCrudDAO
-        DAOData dao = new DAOData();
-        // If you have a setConnection method:
-        // dao.setConnection(mockConnection);
+        // Test data retrieval
+        List<TambahData> data = daoData.getAll();
+        assertNotNull("Data list should not be null", data);
+        assertFalse("Data list should not be empty", data.isEmpty());
         
-        // Mock the result set data
-        when(mockResultSet.getString("nim")).thenReturn("12345");
-        when(mockResultSet.getString("nama")).thenReturn("Test Name");
-        when(mockResultSet.getString("kelas")).thenReturn("A");
-        when(mockResultSet.getString("prodi")).thenReturn("Test Prodi");
-        when(mockResultSet.getString("fakultas")).thenReturn("Test Fakultas");
-        when(mockResultSet.getString("angkatan")).thenReturn("2023");
+        // Test the first record
+        TambahData firstRecord = data.get(0);
+        assertEquals("12345", firstRecord.getNim());
+        assertEquals("Test Name", firstRecord.getNama());
+        assertEquals("A", firstRecord.getKelas());
         
-        // Test getAll method or other methods from DAOData
-        assertTrue("Database connection should be established", mockConnection != null);
+        // Verify database interactions
         verify(mockConnection, atLeastOnce()).createStatement();
+        verify(mockStatement).executeQuery("SELECT * FROM tb_mahasiswa");
     }
-
+    
+    @Test
+    public void testInsertData() throws Exception {
+        // Create test data
+        TambahData testData = new TambahData();
+        testData.setNim("54321");
+        testData.setNama("New Test");
+        testData.setJenisKelamin("Laki-laki");
+        testData.setKelas("B");
+        testData.setProdi("Test Prodi");
+        testData.setFakultas("Test Fakultas");
+        testData.setAngkatan("2024");
+        
+        // Set up form fields
+        form.gettxtNim().setText(testData.getNim());
+        form.gettxtNama().setText(testData.getNama());
+        // ... set other fields
+        
+        // Test insert operation
+        controller.insert();
+        
+        // Verify prepared statement was created with correct SQL
+        verify(mockConnection).prepareStatement(contains("INSERT INTO tb_mahasiswa"));
+    }
 }
