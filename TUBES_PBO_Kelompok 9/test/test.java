@@ -38,6 +38,7 @@ public class test {
 
     @Before
     public void setUp() throws Exception {
+        PowerMockito.mockStatic(DBConnection.class);
         // Initialize mocks
         mockConnection = mock(Connection.class);
         mockStatement = mock(Statement.class);
