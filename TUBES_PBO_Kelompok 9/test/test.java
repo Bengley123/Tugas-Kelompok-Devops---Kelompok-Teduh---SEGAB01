@@ -4,31 +4,19 @@
  * and open the template in the editor.
  */
 
-import org.junit.Before;
+import static org.junit.Assert.*;
 import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
-import javax.swing.JTable;
+import view.formcrud;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.table.DefaultTableModel;
 
-
-import view.*;
-
-/**
- *
- * @author arzaq
- */
 public class test {
     private formcrud form;
-    
-    @Before
-    public void setUp() {
-        form = new formcrud();
-    }
-    
+
     @Test
     public void testGetTextFields() {
+        // Initialize form
+        form = new formcrud();
+        
         // Test NIM field
         JTextField nimField = form.gettxtNim();
         assertNotNull("NIM field should not be null", nimField);
@@ -53,8 +41,4 @@ public class test {
         JTextField angkatanField = form.gettxtAngkatan();
         assertNotNull("Angkatan field should not be null", angkatanField);
     }
-    
-    
-    
-    
 }

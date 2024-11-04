@@ -20,9 +20,18 @@ import koneksi.DBConnection;
  * @author ASUS
  */
 public class DAOData implements IDAOData {
+    private Connection connection;
     
-    public DAOData(){
-        con = DBConnection.connectDB();
+    public void setConnection(Connection connection) {
+        this.connection = connection;
+    }
+    
+     public DAOData() {
+        this.connection = DBConnection.connectDB();
+    }
+    
+    public DAOData(Connection connection) {
+        this.connection = connection;
     }
 
     @Override

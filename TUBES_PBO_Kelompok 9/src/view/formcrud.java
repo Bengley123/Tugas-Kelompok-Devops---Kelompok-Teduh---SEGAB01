@@ -1,5 +1,6 @@
 package view;
 import controller.controllerData;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JComboBox;
@@ -8,25 +9,33 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import koneksi.DBConnection;
 
-
 public class formcrud extends javax.swing.JPanel {
 
     /**
      * Creates new form fromcrud2
      */
-    public formcrud() {
+    private Connection connection;
+
+    // Constructor for dependency injection
+    public formcrud(Connection connection) {
+        this.connection = connection != null ? connection : DBConnection.connectDB();
         initComponents();
         ctMhs = new controllerData(this);
         ctMhs.isiTable();
-        
     }
-    void hapus(){
+
+    // Default constructor for normal use (uses real DB connection)
+    public formcrud() {
+        this(DBConnection.connectDB());
+    }
+
+    void hapus() {
         txnim.setText("");
         txnama.setText("");
         txkelas.setText("");
-        
     }
-    void cari(){
+
+    void cari() {
         DefaultTableModel tb1 = new DefaultTableModel();
         tb1.addColumn("nim");
         tb1.addColumn("nama");
@@ -35,30 +44,28 @@ public class formcrud extends javax.swing.JPanel {
         tb1.addColumn("prodi");
         tb1.addColumn("fakultas");
         tb1.addColumn("angkatan");
-        
-        try{
-           String sql = "SELECT * FROM tb_mahasiswa WHERE nim like'%"+tCari.getText()+"%'";
-           Statement st = (Statement) DBConnection.connectDB().createStatement();
-           ResultSet rs = st.executeQuery(sql);
-           
-           while(rs.next()){
-               tb1.addRow(new Object[] {
-                   rs.getString("nim"),
-                   rs.getString("nama"),
-                   rs.getString("jenis_kelamin"),
-                   rs.getString("kelas"),
-                   rs.getString("prodi"),
-                   rs.getString("fakultas"),
-                   rs.getString("angkatan"),
-               });
-               TableData.setModel(tb1);
-           }   
-        }catch(Exception e){          
+
+        try {
+            String sql = "SELECT * FROM tb_mahasiswa WHERE nim like'%" + tCari.getText() + "%'";
+            Statement st = (Statement) connection.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                tb1.addRow(new Object[] {
+                    rs.getString("nim"),
+                    rs.getString("nama"),
+                    rs.getString("jenis_kelamin"),
+                    rs.getString("kelas"),
+                    rs.getString("prodi"),
+                    rs.getString("fakultas"),
+                    rs.getString("angkatan"),
+                });
+                TableData.setModel(tb1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Handle exception for debugging
         }
     }
-    
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -73,7 +80,6 @@ public class formcrud extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -105,8 +111,6 @@ public class formcrud extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("DATA MAHASISWA");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/student.png"))); // NOI18N
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -114,12 +118,10 @@ public class formcrud extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(522, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -387,21 +389,17 @@ public class formcrud extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 910, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 3, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 3, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 744, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 10, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 11, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -472,7 +470,6 @@ public class formcrud extends javax.swing.JPanel {
     private javax.swing.JButton btnReset;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -523,7 +520,7 @@ public class formcrud extends javax.swing.JPanel {
     }
     
     public JTextField gettxtAngkatan() {
-        return txangkatan;
+        return txangkatan;  
     }
 }
 
