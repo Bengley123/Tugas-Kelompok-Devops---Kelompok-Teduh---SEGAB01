@@ -6,11 +6,16 @@
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.api.mockito.PowerMockito;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
 import koneksi.DBConnection;
 import view.formcrud;
@@ -20,6 +25,8 @@ import model.TambahData;
 import javax.swing.JTextField;
 import java.util.List;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(DBConnection.class)
 public class test {
     private Connection mockConnection;
     private Statement mockStatement;
@@ -53,14 +60,24 @@ public class test {
         when(mockResultSet.getString("fakultas")).thenReturn("Test Fakultas");
         when(mockResultSet.getString("angkatan")).thenReturn("2023");
         
-        // Mock the database connection class
-        mockStatic(DBConnection.class);
-        when(DBConnection.connectDB()).thenReturn(mockConnection);
+        // Mock the database connection class using PowerMockito
+        PowerMockito.mockStatic(DBConnection.class);
+        PowerMockito.when(DBConnection.connectDB()).thenReturn(mockConnection);
         
         // Initialize your components
         form = new formcrud();
         controller = new controllerData(form);
         daoData = new DAOData();
+    }
+
+    @After
+    public void tearDown() {
+        // Clean up static mocks
+        try {
+            PowerMockito.doCallRealMethod().when(DBConnection.class);
+        } catch (Exception e) {
+            // Ignore cleanup exceptions
+        }
     }
 
     @Test

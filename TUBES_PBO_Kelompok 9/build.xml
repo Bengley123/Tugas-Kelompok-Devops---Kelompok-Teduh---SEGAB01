@@ -25,6 +25,9 @@
             <include name="powermock-api-mockito2-2.0.9.jar"/>
             <include name="powermock-module-junit4-2.0.9.jar"/>
             <include name="javassist-3.29.2-GA.jar"/> <!-- Added for PowerMock -->
+            <include name="powermock-api-support-2.0.9.jar"/>
+            <include name="powermock-reflect-2.0.9.jar"/>
+            <include name="powermock-module-junit4-common-2.0.9.jar"/>
         </fileset>
         <pathelement location="${build.classes.dir}"/>
         <pathelement location="${build.test.dir}"/>
